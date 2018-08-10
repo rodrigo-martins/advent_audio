@@ -1,7 +1,8 @@
 .npmignore
 hooks/
 node_modules/
-platforms/
+platforms/s
 plugins/
+www/node_modules/
 
 
