@@ -22,37 +22,60 @@ myApp.filter('secondsToTime', function() {
 
 myApp.controller('myCtrl', function ($scope) {
 
-    var media = null
+    //Retirar window depois que testar
+    window.media = null
 
     $scope.status = 0
     $scope.duration = 0
     $scope.position = 0
+    
+    $scope.audio = null;
 
+    $scope.audioList = [{
+            "name":'Easy',
+            "url":"http://www.samisite.com/sound/cropShadesofGrayMonkees.mp3"
+        },{
+            "name":'Cold Play',
+            "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/speed-of-sound-128.mp3",
+        },{
+            "name":'Kate',
+            "url":"https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/dark-horse-320.mp3"
+        },{
+            "name":'Mozart',
+            "url":"https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/mozart-17-128.mp3"
+        }
+    ]
 
-    $scope.playAudio = function (url) {
+    $scope.play = function () {
+
+        if(!$scope.audio.url){
+            if(!$scope.audioList.length) return
+            $scope.audio = $scope.audioList[0]
+        }
 
         //if paused
-        if($scope.status == 3 && media.src == url){
+        if($scope.status == 3 && media.src == $scope.url){
             media.play()
             return;
         }
 
         //if another audio
-        if( media && media.src != url){
+        if( media && media.src != $scope.url){
             media.stop()
             media.release()
         }
 
         if($scope.status == 0 || $scope.status == 4){
             // Play the audio file at url
-            media = new Media(url,
+            console.log($scope.url)
+            media = new Media($scope.url,
                 // success callback
                 function() {
-                    console.log("playAudio():Audio Success");
+                    console.log("play("+$scope.url+"):Audio Success");
                 },
                 // error callback
                 function(err) {
-                    console.log("playAudio():Audio Error: ",err);
+                    console.log("play("+$scope.url+"):Audio Error: ",err);
                 },
                 function(e){
                     $scope.status = e
@@ -108,6 +131,11 @@ myApp.controller('myCtrl', function ($scope) {
         }
     }
 
+    $scope.setAudio = function (audio){
+        $scope.audio = audio
+        $scope.play()
+    }
+
     $scope.pause = function (){
         if(media){
             media.pause()
@@ -117,10 +145,11 @@ myApp.controller('myCtrl', function ($scope) {
     $scope.stop = function (){
         if(media){
             media.stop()
+            media.release()
         }
     }
 
     $scope.seekTo = function(){
-        media.seekTo()
+        media.seekTo($scope.position * 1000)
     }
 })

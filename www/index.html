@@ -49,25 +49,31 @@
     <title>Advent Audio</title>
 </head>
 
-<body ng-app="myApp" ng-controller="myCtrl">
+<body ng-app="myApp" ng-controller="myCtrl" ng-cloak>
 
     <h1>Status: {{status}}</h1>
     <p>Duration: {{duration | secondsToTime }}</p>
     <p>Positon: {{position | secondsToTime }}</p>
-    <button ng-click="playAudio('http://www.samisite.com/sound/cropShadesofGrayMonkees.mp3')">Easy</button><br>
-    <button ng-click="playAudio('https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/speed-of-sound-128.mp3')">ColdPlay</button><br>
-    <button ng-click="playAudio('https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/dark-horse-320.mp3')">Kate</button><br>
-    <button ng-click="playAudio('https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/mozart-17-128.mp3')">MoZart</button><br>
 
     <br>
-    <button ng-click="stop()">Stop</button>
-    <button ng-click="pause()">Pause</button>
     
-
     <div layout>
-        <md-slider flex class="md-primary" ng-model="position" min="0" max="{{duration}}" aria-label="rating"></md-slider>
+        <md-slider flex class="md-primary" ng-model="position" ng-change="seekTo()" min="0" max="{{duration}}" aria-label="rating"></md-slider>
     </div>
-
+     
+    
+    <ul>
+        <li ng-repeat="audio in audioList">
+            <p ng-click="setAudio({audio})">{{audio.name}}</a>
+        </li>
+    </ul>
+    
+    <button ng-click="prev()">Prev</button>
+    <button ng-click="setUrlAudio()">Play</button>
+    <button ng-click="pause()">Pause</button>
+    <button ng-click="next()">Next</button>
+    <br>
+    <button ng-click="stop()">Stop</button>
 
     <p>{{media}}</p>
     <script type="text/javascript" src="cordova.js"></script>
