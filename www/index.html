@@ -58,7 +58,7 @@
     <br>
     
     <div layout>
-        <md-slider flex class="md-primary" ng-model="position" ng-change="seekTo()" min="0" max="{{duration}}" aria-label="rating"></md-slider>
+        <md-slider flex class="md-primary" ng-model="position" ng-change="seekToAudio()" min="0" max="{{duration}}" aria-label="rating"></md-slider>
     </div>
      
     
@@ -68,12 +68,12 @@
         </li>
     </ul>
     
-    <button ng-click="prev()">Prev</button>
-    <button ng-click="play()">Play</button>
-    <button ng-click="pause()">Pause</button>
+    <button ng-click="previousAudio()">Prev</button>
+    <button ng-click="playAudio()">Play</button>
+    <button ng-click="pauseAudio()">Pause</button>
     <button ng-click="nextAudio()">Next</button>
     <br>
-    <button ng-click="stop()">Stop</button>
+    <button ng-click="stopAudio()">Stop</button>
 
     <p>{{media}}</p>
     <script type="text/javascript" src="cordova.js"></script>

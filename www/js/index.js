@@ -46,7 +46,7 @@ myApp.controller('myCtrl', function ($scope) {
         }
     ]
 
-    $scope.play = function () {
+    $scope.playAudio = function () {
 
         //Check is there is audio
         if (!$scope.audio) {
@@ -66,7 +66,7 @@ myApp.controller('myCtrl', function ($scope) {
             media.release()
             
             //Wait a second to callback of stop function change the $scope.state value
-            setTimeout(function(){$scope.play()},1000)
+            setTimeout(function(){$scope.playAudio()},1000)
         }
 
         console.log($scope.status)
@@ -157,16 +157,16 @@ myApp.controller('myCtrl', function ($scope) {
 
     $scope.setAudio = function (audio) {
         $scope.audio = audio
-        $scope.play()
+        $scope.playAudio()
     }
 
-    $scope.pause = function () {
+    $scope.pauseAudio = function () {
         if (media) {
             media.pause()
         }
     }
 
-    $scope.stop = function () {
+    $scope.stopAudio = function () {
         if (media) {
             media.stop()
             media.release()
@@ -174,7 +174,7 @@ myApp.controller('myCtrl', function ($scope) {
         $scope.audio = null
     }
 
-    $scope.seekTo = function () {
+    $scope.seekToAudio = function () {
         media.seekTo($scope.position * 1000)
     }
 
@@ -185,5 +185,14 @@ myApp.controller('myCtrl', function ($scope) {
                 $scope.setAudio($scope.playList[i])
             }
         } 
-    }    
+    } 
+    
+    $scope.previousAudio = function (){
+        if($scope.audio){
+            var i = $scope.playList.indexOf($scope.audio)
+            if(--i >= 0 ){
+                $scope.setAudio($scope.playList[i])
+            }
+        } 
+    }   
 })  
