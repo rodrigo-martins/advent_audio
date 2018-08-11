@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', [])
+var myApp = angular.module('myApp', ['ngMaterial','ngMessages'])
 
 myApp.filter('secondsToTime', function () {
 

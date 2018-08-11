@@ -56,24 +56,28 @@
     <p>Positon: {{position | secondsToTime }}</p>
 
     <br>
-    
+
     <div layout>
         <md-slider flex class="md-primary" ng-model="position" ng-change="seekToAudio()" min="0" max="{{duration}}" aria-label="rating"></md-slider>
     </div>
-     
-    
+
+
     <ul>
         <li ng-repeat="item in playList">
             <p ng-click="setAudio(item)">{{item.name}}</p>
         </li>
     </ul>
-    
-    <button ng-click="previousAudio()">Prev</button>
-    <button ng-click="playAudio()">Play</button>
-    <button ng-click="pauseAudio()">Pause</button>
-    <button ng-click="nextAudio()">Next</button>
+
+    <p ng-click="previousAudio()">Prev</p>
+    <p ng-click="playAudio()">Play</p>
+    <p ng-click="pauseAudio()">Pause</p>
+    <p ng-click="nextAudio()">Next</p>
     <br>
-    <button ng-click="stopAudio()">Stop</button>
+    <p ng-click="stopAudio()">Stop</p>
+
+    <md-button class="md-fab md-primary" aria-label="Player">
+        <md-icon class="material-icon">play_arrow</md-icon>
+    </md-button>
 
     <p>{{media}}</p>
     <script type="text/javascript" src="cordova.js"></script>
