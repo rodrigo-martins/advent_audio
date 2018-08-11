@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngMaterial', 'ngMessages'])
+var myApp = angular.module('myApp', [])
 
 myApp.filter('secondsToTime', function () {
 
@@ -32,27 +32,19 @@ myApp.controller('myCtrl', function ($scope) {
     $scope.audio = null;
 
     $scope.playList = [{
-        "name": 'Easy',
-        "url": "http://www.samisite.com/sound/cropShadesofGrayMonkees.mp3"
-    }, {
-        "name": 'Cold Play',
-        "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/speed-of-sound-128.mp3",
-    }, {
-        "name": 'Kate',
-        "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/dark-horse-320.mp3"
-    }, {
-        "name": 'Mozart',
-        "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/mozart-17-128.mp3"
-    }
+            "name": 'Easy',
+            "url": "http://www.samisite.com/sound/cropShadesofGrayMonkees.mp3"
+        }, {
+            "name": 'Cold Play',
+            "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/speed-of-sound-128.mp3",
+        }, {
+            "name": 'Kate',
+            "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/dark-horse-320.mp3"
+        }, {
+            "name": 'Mozart',
+            "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/mozart-17-128.mp3"
+        }
     ]
-
-    function wait(ms){
-        var start = new Date().getTime();
-        var end = start;
-        while(end < start + ms) {
-          end = new Date().getTime();
-       }
-     }
 
     $scope.play = function () {
 
@@ -73,15 +65,13 @@ myApp.controller('myCtrl', function ($scope) {
             media.stop()
             media.release()
             
-            //Wait a second to callback of stop and $scope.state change value
+            //Wait a second to callback of stop function change the $scope.state value
             setTimeout(function(){$scope.play()},1000)
         }
 
         console.log($scope.status)
 
         if ($scope.status == 0 || $scope.status == 4) {
-            console.log($scope.audio)
-            console.log($scope.audio.url)
             media = new Media($scope.audio.url,
                 // success callback
                 function () {
@@ -166,7 +156,6 @@ myApp.controller('myCtrl', function ($scope) {
     }
 
     $scope.setAudio = function (audio) {
-        console.log(audio)
         $scope.audio = audio
         $scope.play()
     }
@@ -188,4 +177,13 @@ myApp.controller('myCtrl', function ($scope) {
     $scope.seekTo = function () {
         media.seekTo($scope.position * 1000)
     }
-})
+
+    $scope.nextAudio = function (){
+        if($scope.audio){
+            var i = $scope.playList.indexOf($scope.audio)
+            if(++i < $scope.playList.length ){
+                $scope.setAudio($scope.playList[i])
+            }
+        } 
+    }    
+})  
