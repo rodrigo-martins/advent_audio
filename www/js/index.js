@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngMaterial','ngMessages'])
+var myApp = angular.module('myApp', ['ngMaterial', 'ngMessages'])
 
 myApp.filter('secondsToTime', function () {
 
@@ -20,7 +20,7 @@ myApp.filter('secondsToTime', function () {
     };
 });
 
-myApp.controller('myCtrl', function ($scope) {
+myApp.controller('myCtrl', function ($scope, $mdBottomSheet) {
 
     //Retirar window depois que testar
     window.media = null
@@ -32,18 +32,18 @@ myApp.controller('myCtrl', function ($scope) {
     $scope.audio = null;
 
     $scope.playList = [{
-            "name": 'Easy',
-            "url": "http://www.samisite.com/sound/cropShadesofGrayMonkees.mp3"
-        }, {
-            "name": 'Cold Play',
-            "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/speed-of-sound-128.mp3",
-        }, {
-            "name": 'Kate',
-            "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/dark-horse-320.mp3"
-        }, {
-            "name": 'Mozart',
-            "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/mozart-17-128.mp3"
-        }
+        "name": 'Easy',
+        "url": "http://www.samisite.com/sound/cropShadesofGrayMonkees.mp3"
+    }, {
+        "name": 'Cold Play',
+        "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/speed-of-sound-128.mp3",
+    }, {
+        "name": 'Kate',
+        "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/dark-horse-320.mp3"
+    }, {
+        "name": 'Mozart',
+        "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/mozart-17-128.mp3"
+    }
     ]
 
     $scope.playAudio = function () {
@@ -64,9 +64,9 @@ myApp.controller('myCtrl', function ($scope) {
         if (media && media.src != $scope.audio.url) {
             media.stop()
             media.release()
-            
+
             //Wait a second to callback of stop function change the $scope.state value
-            setTimeout(function(){$scope.playAudio()},1000)
+            setTimeout(function () { $scope.playAudio() }, 1000)
         }
 
         console.log($scope.status)
@@ -178,21 +178,34 @@ myApp.controller('myCtrl', function ($scope) {
         media.seekTo($scope.position * 1000)
     }
 
-    $scope.nextAudio = function (){
-        if($scope.audio){
+    $scope.nextAudio = function () {
+        if ($scope.audio) {
             var i = $scope.playList.indexOf($scope.audio)
-            if(++i < $scope.playList.length ){
+            if (++i < $scope.playList.length) {
                 $scope.setAudio($scope.playList[i])
             }
-        } 
-    } 
-    
-    $scope.previousAudio = function (){
-        if($scope.audio){
+        }
+    }
+
+    $scope.previousAudio = function () {
+        if ($scope.audio) {
             var i = $scope.playList.indexOf($scope.audio)
-            if(--i >= 0 ){
+            if (--i >= 0) {
                 $scope.setAudio($scope.playList[i])
             }
-        } 
-    }   
-})  
+        }
+    }
+    $scope.showGridBottomSheet = function () {
+        $scope.alert = ''
+        $mdBottomSheet.show({
+            templateUrl: 'bottom-sheet-grid-template.html',
+            clickOutsideToClose: true,
+            scope:$scope,
+            preserveScope:true
+        }).then(function (e) {
+
+        }).catch(function (e) {
+            // User clicked outside or hit escape
+        })
+    }
+})
