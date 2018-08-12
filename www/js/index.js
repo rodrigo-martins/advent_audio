@@ -264,7 +264,7 @@ myApp.controller('myCtrl', function ($scope, $mdBottomSheet) {
     $scope.showGridBottomSheet = function () {
         $scope.alert = ''
         $mdBottomSheet.show({
-            templateUrl: 'template/player.html',
+            templateUrl: 'player.html',
             clickOutsideToClose: true,
             scope: $scope,
             preserveScope: true,
