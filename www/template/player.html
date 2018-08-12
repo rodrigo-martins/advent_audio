@@ -1,0 +1,48 @@
+<md-bottom-sheet class="player">
+  <md-content ng-cloak>
+    <md-list flex>
+      <md-list-item class="md-2-line">
+        <img ng-src="{{book.image}}"
+          class="md-avatar md-avatar-book" alt="{{item.who}}" />
+        <div class="md-list-item-text" layout="column">
+          <h3>{{book.name}}</h3>
+          <h4>{{audio.name}}</h4>
+          <div>
+            <div flex layout="row" layout-align="space-between center">
+              <div>
+                <md-button class="md-icon-button" ng-click="previousAudio()" ng-disabled="!((playList.indexOf(audio)-1) >= 0)">
+                  <md-icon class="material-icon">skip_previous</md-icon>
+                </md-button>
+              </div>
+              <div ng-show='status == 0 || status == 3 || status == 4'>
+                <md-button class="md-icon-button" ng-click="playAudio()">
+                  <md-icon ng-show="status != 1 " class="material-icon">play_arrow</md-icon>
+                </md-button>
+              </div>
+              <div ng-show='status == 1'>
+                <md-button class="md-icon-button" ng-click="stopAudio()">
+                  <md-progress-circular ng-show="status == 1" md-mode="indeterminate" md-diameter="25px"></md-progress-circular>
+                </md-button>
+              </div>
+              <div ng-show="status == 2">
+                <md-button class="md-icon-button" ng-click="pauseAudio()">
+                  <md-icon class="material-icon">pause</md-icon>
+                </md-button>
+              </div>
+              <div>
+                <md-button class="md-icon-button" ng-click="nextAudio()" ng-disabled="!((playList.indexOf(audio)+1) < playList.length)">
+                  <md-icon class="material-icon">skip_next</md-icon>
+                </md-button>
+              </div>
+            </div>
+            <md-slider-container>
+              <span>{{position | secondsToTime }}</span>
+              <md-slider flex class="md-primary" ng-model="position" ng-change="seekToAudio()" min="0" max="{{duration}}" aria-label="rating"></md-slider>
+              <span>{{duration | secondsToTime }}</span>
+            </md-slider-container>
+          </div>
+        </div>
+      </md-list-item>
+    </md-list>
+  </md-content>
+</md-bottom-sheet>
