@@ -49,11 +49,19 @@
     <title>Advent Audio</title>
 </head>
 
-<body ng-app="myApp" ng-controller="myCtrl" ng-cloak>
-
+<body ng-app="myApp" ng-controller="myCtrl" ng-cloak md-swipe-up="onSwipeUp()">
+   
     <h1>Status: {{status}}</h1>
     <p>Duration: {{duration | secondsToTime }}</p>
     <p>Positon: {{position | secondsToTime }}</p>
+
+    <div layout="row" layout-wrap layout-align="center center">
+        <md-button ng-repeat="color in colors" flex-gt-md="15" flex="30" md-colors="{background: '{{color}}'}" md-colors-watch="false"
+            ng-disabled="primary === color && !isPrimary" ng-click="selectTheme(color)">
+            {{color}}
+        </md-button>
+    </div>
+
 
     <br>
 
@@ -74,11 +82,17 @@
     <p ng-click="nextAudio()">Next</p>
     <br>
     <p ng-click="stopAudio()">Stop</p>
-    <div layout="row" layout-align="end center">
-        <md-button class="md-fab md-primary" aria-label="Player" ng-click="showGridBottomSheet()">
-            <md-icon class="material-icon">play_arrow</md-icon>
-        </md-button>
-    </div>
+    
+    <md-button ng-show='status == 0 || status == 3' ng-click="playAudio()" class="md-button md-fab md-fab-bottom-right"
+        aria-label="Player">
+        <md-icon class="material-icon">play_arrow</md-icon>
+    </md-button>
+    <md-button ng-show='status == 1 || status == 4' ng-click="stopAudio()" class="md-button md-fab md-fab-bottom-right" aria-label="Player">
+        <md-icon> <md-progress-circular class="md-background" ng-show="status == 1" md-mode="indeterminate" md-diameter="25px"></md-progress-circular></md-icon>
+    </md-button>
+    <md-button ng-show="status == 2" ng-click="pauseAudio()" class="md-button md-fab md-fab-bottom-right" aria-label="Player">
+        <md-icon class="material-icon">pause</md-icon>
+    </md-button>
 
     <p>{{media}}</p>
     <script type="text/javascript" src="cordova.js"></script>

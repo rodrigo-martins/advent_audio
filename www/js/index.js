@@ -20,7 +20,22 @@ myApp.filter('secondsToTime', function () {
     };
 });
 
-myApp.controller('myCtrl', function ($scope, $mdBottomSheet) {
+myApp.controller('myCtrl', function ($scope, $mdBottomSheet, $mdColorPalette) {
+
+    $scope.colors = Object.keys($mdColorPalette);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //Retirar window depois que testar
     window.media = null
@@ -46,14 +61,13 @@ myApp.controller('myCtrl', function ($scope, $mdBottomSheet) {
     }
     ]
 
+
+    if (!$scope.audio && $scope.status == 0) {
+        if (!$scope.playList.length) return
+        $scope.audio = $scope.playList[0]
+    }
+
     $scope.playAudio = function () {
-
-        //Check is there is audio
-        if (!$scope.audio) {
-            if (!$scope.playList.length) return
-            $scope.audio = $scope.playList[0]
-        }
-
         //Audio Paused
         if ($scope.status == 3 && media.src == $scope.audio.url) {
             media.play()
@@ -79,6 +93,10 @@ myApp.controller('myCtrl', function ($scope, $mdBottomSheet) {
                 },
                 // error callback
                 function (err) {
+                    media.stop()
+                    media.release
+                    $scope.audio = null
+                    $scope.status = 0
                     console.log("Audio Error: ", $scope.audio);
                 },
                 function (e) {
@@ -171,6 +189,7 @@ myApp.controller('myCtrl', function ($scope, $mdBottomSheet) {
             media.stop()
             media.release()
         }
+        $scope.status = 4
         $scope.audio = null
     }
 
@@ -200,12 +219,16 @@ myApp.controller('myCtrl', function ($scope, $mdBottomSheet) {
         $mdBottomSheet.show({
             templateUrl: 'bottom-sheet-grid-template.html',
             clickOutsideToClose: true,
-            scope:$scope,
-            preserveScope:true
+            scope: $scope,
+            preserveScope: true
         }).then(function (e) {
 
         }).catch(function (e) {
             // User clicked outside or hit escape
         })
     }
+
+    $scope.onSwipeUp = function (ev, target) {
+       $scope.showGridBottomSheet()
+    };
 })
