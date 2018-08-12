@@ -1,34 +1,8 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
 
 <head>
-    <!--
-        Customize this policy to fit your own app's needs. For more guidance, see:
-            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
-        Some notes:
-            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
-            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-                * Enable inline JS: add 'unsafe-inline' to default-src
-        -->
+
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval' * ws:;style-src 'self' 'unsafe-inline' data: blob:;media-src *;img-src 'self' data: content: *;script-src * 'unsafe-inline' 'unsafe-eval' data: blob:;">
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
@@ -49,52 +23,31 @@
     <title>Advent Audio</title>
 </head>
 
-<body ng-app="myApp" ng-controller="myCtrl" ng-cloak md-swipe-up="onSwipeUp()">
-   
-    <h1>Status: {{status}}</h1>
-    <p>Duration: {{duration | secondsToTime }}</p>
-    <p>Positon: {{position | secondsToTime }}</p>
+<body ng-app="myApp" ng-controller="myCtrl" ng-cloak>
 
-    <div layout="row" layout-wrap layout-align="center center">
-        <md-button ng-repeat="color in colors" flex-gt-md="15" flex="30" md-colors="{background: '{{color}}'}" md-colors-watch="false"
-            ng-disabled="primary === color && !isPrimary" ng-click="selectTheme(color)">
-            {{color}}
+    <div layout='column'>
+        <md-list>
+            <md-list-item ng-repeat="item in playList" ng-click="null" class="noright">
+                <p>{{ item.name }}</p>
+                <md-icon ng-click="setAudio(item)" aria-label="" class="md-secondary md-hue-3 material-icon">play_arrow</md-icon>
+                <md-icon ng-click="showGridBottomSheet()" aria-label="" class="md-secondary md-hue-3 material-icon">get_app</md-icon>
+                <md-divider></md-divider>
+            </md-list-item>
+        </md-list>
+    </div>
+
+    <div>
+        <md-button ng-show='status == 0 || status == 3' ng-click="playAudio()" class="md-button md-fab md-fab-bottom-right" aria-label="Player">
+            <md-icon class="material-icon">play_arrow</md-icon>
+        </md-button>
+        <md-button ng-show='status == 1 || status == 4' ng-click="stopAudio()" class="md-button md-fab md-fab-bottom-right" aria-label="Player">
+            <md-progress-circular class="md-background" ng-show="status == 1" md-mode="indeterminate" md-diameter="25px"></md-progress-circular>
+        </md-button>
+        <md-button ng-show="status == 2" ng-click="pauseAudio()" class="md-button md-fab md-fab-bottom-right" aria-label="Player">
+            <md-icon class="material-icon">pause</md-icon>
         </md-button>
     </div>
 
-
-    <br>
-
-    <div layout>
-        <md-slider flex class="md-primary" ng-model="position" ng-change="seekToAudio()" min="0" max="{{duration}}" aria-label="rating"></md-slider>
-    </div>
-
-
-    <ul>
-        <li ng-repeat="item in playList">
-            <p ng-click="setAudio(item)">{{item.name}}</p>
-        </li>
-    </ul>
-
-    <p ng-click="previousAudio()">Prev</p>
-    <p ng-click="playAudio()">Play</p>
-    <p ng-click="pauseAudio()">Pause</p>
-    <p ng-click="nextAudio()">Next</p>
-    <br>
-    <p ng-click="stopAudio()">Stop</p>
-    
-    <md-button ng-show='status == 0 || status == 3' ng-click="playAudio()" class="md-button md-fab md-fab-bottom-right"
-        aria-label="Player">
-        <md-icon class="material-icon">play_arrow</md-icon>
-    </md-button>
-    <md-button ng-show='status == 1 || status == 4' ng-click="stopAudio()" class="md-button md-fab md-fab-bottom-right" aria-label="Player">
-        <md-icon> <md-progress-circular class="md-background" ng-show="status == 1" md-mode="indeterminate" md-diameter="25px"></md-progress-circular></md-icon>
-    </md-button>
-    <md-button ng-show="status == 2" ng-click="pauseAudio()" class="md-button md-fab md-fab-bottom-right" aria-label="Player">
-        <md-icon class="material-icon">pause</md-icon>
-    </md-button>
-
-    <p>{{media}}</p>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
 

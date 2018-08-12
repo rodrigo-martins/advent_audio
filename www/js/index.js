@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngMaterial', 'ngMessages'])
+var myApp = angular.module('myApp', ['ngMaterial'])
 
 myApp.filter('secondsToTime', function () {
 
@@ -20,22 +20,10 @@ myApp.filter('secondsToTime', function () {
     };
 });
 
-myApp.controller('myCtrl', function ($scope, $mdBottomSheet, $mdColorPalette) {
+var global = 'global'
+window.globalWindow = 'globalWindow'
 
-    $scope.colors = Object.keys($mdColorPalette);
-
-
-
-
-
-
-
-
-
-
-
-
-
+myApp.controller('myCtrl', function ($scope, $mdBottomSheet) {
 
     //Retirar window depois que testar
     window.media = null
@@ -46,19 +34,78 @@ myApp.controller('myCtrl', function ($scope, $mdBottomSheet, $mdColorPalette) {
 
     $scope.audio = null;
 
-    $scope.playList = [{
-        "name": 'Easy',
-        "url": "http://www.samisite.com/sound/cropShadesofGrayMonkees.mp3"
-    }, {
-        "name": 'Cold Play',
-        "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/speed-of-sound-128.mp3",
-    }, {
-        "name": 'Kate',
-        "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/dark-horse-320.mp3"
-    }, {
-        "name": 'Mozart',
-        "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/mozart-17-128.mp3"
-    }
+    $scope.book = {
+        name: "History of Sabbath",
+        image: "https://cdn7.bigcommerce.com/s-58mm4kv8p/images/stencil/1000x1000/products/1161/1281/History-of-the-Sabbath__94748.1506607626.jpg?c=2"
+    } 
+   
+
+    $scope.playList = [
+        {
+            "name": 'Cold Play',
+            "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/speed-of-sound-128.mp3",
+        }, {
+            "name": 'Kate',
+            "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/dark-horse-320.mp3"
+        }, {
+            "name": 'Easy',
+            "url": "http://www.samisite.com/sound/cropShadesofGrayMonkees.mp3"
+        }, {
+            "name": 'Mozart',
+            "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/mozart-17-128.mp3"
+        },
+        {
+            "name": 'Cold Play',
+            "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/speed-of-sound-128.mp3",
+        }, {
+            "name": 'Kate',
+            "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/dark-horse-320.mp3"
+        }, {
+            "name": 'Easy',
+            "url": "http://www.samisite.com/sound/cropShadesofGrayMonkees.mp3"
+        }, {
+            "name": 'Mozart',
+            "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/mozart-17-128.mp3"
+        },
+        {
+            "name": 'Cold Play',
+            "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/speed-of-sound-128.mp3",
+        }, {
+            "name": 'Kate',
+            "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/dark-horse-320.mp3"
+        }, {
+            "name": 'Easy',
+            "url": "http://www.samisite.com/sound/cropShadesofGrayMonkees.mp3"
+        }, {
+            "name": 'Mozart',
+            "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/mozart-17-128.mp3"
+        },
+        {
+            "name": 'Cold Play',
+            "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/speed-of-sound-128.mp3",
+        }, {
+            "name": 'Kate',
+            "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/dark-horse-320.mp3"
+        }, {
+            "name": 'Easy',
+            "url": "http://www.samisite.com/sound/cropShadesofGrayMonkees.mp3"
+        }, {
+            "name": 'Mozart',
+            "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/mozart-17-128.mp3"
+        },
+        {
+            "name": 'Cold Play',
+            "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/speed-of-sound-128.mp3",
+        }, {
+            "name": 'Kate',
+            "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/dark-horse-320.mp3"
+        }, {
+            "name": 'Easy',
+            "url": "http://www.samisite.com/sound/cropShadesofGrayMonkees.mp3"
+        }, {
+            "name": 'Mozart',
+            "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/mozart-17-128.mp3"
+        },
     ]
 
 
@@ -68,6 +115,7 @@ myApp.controller('myCtrl', function ($scope, $mdBottomSheet, $mdColorPalette) {
     }
 
     $scope.playAudio = function () {
+
         //Audio Paused
         if ($scope.status == 3 && media.src == $scope.audio.url) {
             media.play()
@@ -189,8 +237,6 @@ myApp.controller('myCtrl', function ($scope, $mdBottomSheet, $mdColorPalette) {
             media.stop()
             media.release()
         }
-        $scope.status = 4
-        $scope.audio = null
     }
 
     $scope.seekToAudio = function () {
@@ -214,21 +260,18 @@ myApp.controller('myCtrl', function ($scope, $mdBottomSheet, $mdColorPalette) {
             }
         }
     }
+
     $scope.showGridBottomSheet = function () {
         $scope.alert = ''
         $mdBottomSheet.show({
-            templateUrl: 'bottom-sheet-grid-template.html',
+            templateUrl: 'template/player.html',
             clickOutsideToClose: true,
             scope: $scope,
-            preserveScope: true
+            preserveScope: true,
         }).then(function (e) {
 
         }).catch(function (e) {
             // User clicked outside or hit escape
         })
     }
-
-    $scope.onSwipeUp = function (ev, target) {
-       $scope.showGridBottomSheet()
-    };
 })
