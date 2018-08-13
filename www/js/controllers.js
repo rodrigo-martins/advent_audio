@@ -144,8 +144,6 @@ myApp.controller('myCtrl', function ($scope, $http, $mdBottomSheet, $mdColorPale
                 function (err) {
                     media.stop()
                     media.release
-                    media = null
-                    $scope.audio = null
                     $scope.status = 0
                     $scope.$apply()
                     console.log("Audio Error: ", err, $scope.audio);
