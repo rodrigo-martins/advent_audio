@@ -24,13 +24,14 @@
 </head>
 
 <body ng-app="myApp" ng-controller="myCtrl" ng-cloak>
-
+    <p>status: {{status}}</p>
     <div layout='column'>
         <md-list>
             <md-list-item ng-repeat="item in playList" ng-click="null" class="noright">
                 <p>{{ item.name }}</p>
-                <md-icon ng-click="setAudio(item)"  ng-hide='item == audio && (status == 1 || status == 2)' aria-label="play {{item.name}}" class="md-secondary md-hue-3 material-icon">play_arrow</md-icon>
-                <md-icon ng-click="pauseAudio()"    ng-show='item == audio && (status == 1 || status == 2)' aria-label="play {{item.name}}" class="md-secondary md-hue-3 material-icon">pause</md-icon>
+                <md-icon ng-click="setAudio(item)"  ng-hide='item == audio && (status == 1 || status == 2 || status == 4)' aria-label="play {{item.name}}" class="md-secondary md-hue-3 material-icon">play_arrow</md-icon>
+                <md-icon ng-click="pauseAudio()"    ng-show='item == audio && (status == 2)' aria-label="play {{item.name}}" class="md-secondary md-hue-3 material-icon">pause</md-icon>
+                <md-icon ng-click="stopAudio()"    ng-show='item == audio && (status == 1 || status == 4)' aria-label="play {{item.name}}" class="md-secondary md-hue-3 material-icon spin">sync</md-icon>
                 <md-icon ng-click="showGridBottomSheet()" aria-label="download {{item.name}}" class="md-secondary md-hue-3 material-icon">get_app</md-icon>
                 <md-divider></md-divider>
             </md-list-item>

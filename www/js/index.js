@@ -27,6 +27,8 @@ myApp.controller('myCtrl', function ($scope, $mdBottomSheet) {
 
     //Retirar window depois que testar
     window.media = null
+    var clock = null
+    var timerDur = null
 
     $scope.status = 0
     $scope.duration = 0
@@ -42,8 +44,8 @@ myApp.controller('myCtrl', function ($scope, $mdBottomSheet) {
 
     $scope.playList = [
         {
-            "name": 'Cold Play',
-            "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/speed-of-sound-128.mp3",
+            "name": 'Guitar',
+            "url": "http://audio.ibeat.org/content/p1rj1s/p1rj1s_-_rockGuitar.mp3",
         }, {
             "name": 'Kate',
             "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/dark-horse-320.mp3"
@@ -131,21 +133,21 @@ myApp.controller('myCtrl', function ($scope, $mdBottomSheet) {
             setTimeout(function () { $scope.playAudio() }, 1000)
         }
 
-        console.log($scope.status)
-
         if ($scope.status == 0 || $scope.status == 4) {
             media = new Media($scope.audio.url,
                 // success callback
-                function () {
-                    console.log("Audio Success", $scope.audio);
+                function (e) {
+                    console.log("Audio Success", e, $scope.audio);
                 },
                 // error callback
                 function (err) {
                     media.stop()
                     media.release
+                    media = null
                     $scope.audio = null
                     $scope.status = 0
-                    console.log("Audio Error: ", $scope.audio);
+                    $scope.apply()
+                    console.log("Audio Error: ", err, $scope.audio);
                 },
                 function (e) {
                     /* 
@@ -158,6 +160,9 @@ myApp.controller('myCtrl', function ($scope, $mdBottomSheet) {
 
                     $scope.status = e
 
+                    //Stop clock if not running
+                    if (e != 2) clearTimeout(clock)
+
                     switch (e) {
                         case 0:
                             break
@@ -166,7 +171,7 @@ myApp.controller('myCtrl', function ($scope, $mdBottomSheet) {
                         case 2:
 
                             //Set Position
-                            var clock = setInterval(function () {
+                            clock = setInterval(function () {
                                 media.getCurrentPosition(
                                     // success callback
                                     function (position) {
@@ -185,7 +190,7 @@ myApp.controller('myCtrl', function ($scope, $mdBottomSheet) {
 
                             //Set Duration
                             var counter = 0;
-                            var timerDur = setInterval(function () {
+                            timerDur = setInterval(function () {
                                 counter += 100;
                                 if (counter > 2000) {
                                     clearInterval(timerDur);
@@ -202,16 +207,14 @@ myApp.controller('myCtrl', function ($scope, $mdBottomSheet) {
                         case 3:
                             break
                         case 4:
+                            media = null
                             $scope.duration = 0
                             $scope.position = 0
+                            $scope.apply()
                             break
                         default:
-
                             break
                     }
-
-                    //Stop clock if not running
-                    if (e != 2) clearTimeout(clock)
 
                     $scope.$apply()
                 }
@@ -229,6 +232,7 @@ myApp.controller('myCtrl', function ($scope, $mdBottomSheet) {
     $scope.pauseAudio = function () {
         if (media) {
             media.pause()
+            clearTimeout(clock)
         }
     }
 
@@ -236,6 +240,7 @@ myApp.controller('myCtrl', function ($scope, $mdBottomSheet) {
         if (media) {
             media.stop()
             media.release()
+            clearTimeout(clock)
         }
     }
 
