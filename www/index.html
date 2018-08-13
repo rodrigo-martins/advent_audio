@@ -25,41 +25,47 @@
 </head>
 
 <body ng-app="myApp" ng-controller="myCtrl" ng-cloak>
-    <md-toolbar class="md-hue-2 md-whiteframe-4dp">
-        <div class="md-toolbar-tools" layout="row" layout-align="space-around center">
-            <md-button href="#/!" class="md-icon-button" aria-label="Home">
-                <md-icon class="material-icon">home</md-icon>
+    <md-content>
+        <md-toolbar class="toolbar-footer md-hue-2 md-whiteframe-4dp">
+            <div class="md-toolbar-tools" layout="row" layout-align="space-around center">
+                <md-button href="#/!" class="md-icon-button" aria-label="Store">
+                    <md-icon class="material-icon">home</md-icon>
+                </md-button>
+                <md-button href="#!search" class="md-icon-button" aria-label="Search">
+                    <md-icon class="material-icon">search</md-icon>
+                </md-button>
+                <md-button href="#!config" class="md-icon-button" aria-label="Library">
+                    <md-icon class="material-icon">local_library</md-icon>
+                </md-button>
+                <md-button class="md-icon-button" ng-click="showGridBottomSheet()" aria-label="Menu">
+                    <md-icon class="material-icon">menu</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <div ng-view></div>
+    </md-content>
+    <md-content>
+        <div>
+            <md-button ng-show='status == 0 || status == 3' ng-click="playAudio()" class="md-button md-fab md-fab-bottom-right" aria-label="Player">
+                <md-icon class="material-icon">play_arrow</md-icon>
             </md-button>
-            <md-button href="#!paris" class="md-icon-button" aria-label="Search">
-                <md-icon class="material-icon">search</md-icon>
+            <md-button ng-show='status == 1 || status == 4' ng-click="stopAudio()" class="md-button md-fab md-fab-bottom-right" aria-label="Player">
+                <md-icon class="material-icon spin" ng-show="status == 1">sync</md-icon>
             </md-button>
-            <md-button href="#!london" class="md-icon-button" aria-label="Library">
-                <md-icon class="material-icon">local_library</md-icon>
-            </md-button>
-            <md-button class="md-icon-button" aria-label="Menu">
-                <md-icon class="material-icon">menu</md-icon>
+            <md-button ng-show="status == 2" ng-click="pauseAudio()" class="md-button md-fab md-fab-bottom-right" aria-label="Player">
+                <md-icon class="material-icon">pause</md-icon>
             </md-button>
         </div>
-    </md-toolbar>
-    <br>
-    <br>
-    <p>status: {{status}}</p>
-    <h3 ng-click="showGridBottomSheet()">Open </h3>
-    <div ng-view></div>
-
-    <div>
-        <md-button ng-show='status == 0 || status == 3' ng-click="playAudio()" class="md-button md-fab md-fab-bottom-right" aria-label="Player">
-            <md-icon class="material-icon">play_arrow</md-icon>
-        </md-button>
-        <md-button ng-show='status == 1 || status == 4' ng-click="stopAudio()" class="md-button md-fab md-fab-bottom-right" aria-label="Player">
-            <md-icon class="material-icon spin" ng-show="status == 1">sync</md-icon>
-        </md-button>
-        <md-button ng-show="status == 2" ng-click="pauseAudio()" class="md-button md-fab md-fab-bottom-right" aria-label="Player">
-            <md-icon class="material-icon">pause</md-icon>
-        </md-button>
-    </div>
+    </md-content>
 
     <script type="text/javascript" src="cordova.js"></script>
+
+    <script type="text/javascript" src="js/modules.js"></script>
+    <script type="text/javascript" src="js/configValues.js"></script>
+    <script type="text/javascript" src="js/filters.js"></script>
+    <script type="text/javascript" src="js/services.js"></script>
+    <script type="text/javascript" src="js/directives.js"></script>
+    <script type="text/javascript" src="js/controllers.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
 
 </body>

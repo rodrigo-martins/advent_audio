@@ -1,0 +1,28 @@
+<md-content>
+    <md-toolbar class="toolbar-header searchBookInput">
+        <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" aria-label="Search">
+                <md-icon class="material-icon">search</md-icon>
+            </md-button>
+            <md-input-container class="md-block" md-theme = 'dark-indigo'>
+                <input ng-model="searchBook" name="searchBook" placeholder="Search">
+            </md-input-container>
+            <md-button class="md-icon-button" aria-label="Search" href="#!bookStoreFilter">
+                <md-icon class="material-icon">sort</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <br><br><br>
+    <md-list>
+        <md-list-item class="md-2-line" ng-repeat="item in bookStore | filter: searchBook" ng-click="null">
+            <img ng-src="{{(item.f_capa) ? config.apiUrl+'/bookreader/default/download/'+item.f_capa : 'img/book_cover.png' }}" class="md-avatar"
+                alt="{{ item.f_name }}" />
+            <div class="md-list-item-text">
+                <h3>{{ item.f_name }}</h3>
+                <h4>Nome do Autor</h4>
+                <p>{{ item.f_livro_size }}B</p>
+                <md-icon ng-click="showGridBottomSheet()" aria-label="download {{item.name}}" class="md-secondary md-hue-3 material-icon">get_app</md-icon>
+            </div>
+        </md-list-item>
+    </md-list>
+</md-content>

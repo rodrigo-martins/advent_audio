@@ -1,0 +1,12 @@
+<md-content class="md-margin">
+    <div layout="column">
+        <div layout="row">
+            <md-input-container style="margin-right: 10px;">
+                <label>Color</label>
+                <md-select ng-model="color">
+                    <md-option ng-repeat="item in colors" value="{{item}}">{{item}}</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+    </div>
+</md-content>

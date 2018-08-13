@@ -77,8 +77,8 @@
 
 .md-button.md-fab.md-fab-bottom-right {
     top: auto;
-    right: 20px;
-    bottom: 20px;
+    right: 10px;
+    bottom: 65px;
     left: auto;
     position: fixed;
 }
@@ -86,15 +86,29 @@
     position: fixed;
     padding: 0 0 88px 0;
 }
-.md-avatar.md-avatar-book{
-    border-radius: 0;
-    width: 60px;
-    height: 80px;
-    margin-top: 3px !important;
+.md-avatar {
+    border-radius: 0 !important;
+    width: 45px !important;
+    height: 60px !important;
 }
 
-md-toolbar{
+md-toolbar.toolbar-header{
     position: fixed;
     top: 0
+}
+
+md-toolbar.toolbar-footer{
+    position: fixed;
+    bottom: 0
+}
+searchBookInput{
+    border-color: white
+}
+
+.searchBookInput md-input-container.md-dark-indigo-theme:not(.md-input-invalid).md-input-focused .md-input, md-input-container.md-dark-indigo-theme:not(.md-input-invalid).md-input-resized .md-input {
+    border-color: white !important;
+}
+.searchBookInput md-input-container .md-errors-spacer{
+    min-height: 0px !important;
 }
 

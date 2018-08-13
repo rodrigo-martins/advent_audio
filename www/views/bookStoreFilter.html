@@ -1,0 +1,35 @@
+<md-content>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <md-button href="#/!" class="md-icon-button" aria-label="Back">
+                <md-icon class="material-icon">arrow_back_ios</md-icon>
+            </md-button>
+            <h2 flex md-truncate>Filter</h2>
+        </div>
+    </md-toolbar>
+    <br>
+    <md-content layout-padding>
+        <md-input-container class="md-block">
+            <label>Languages</label>
+            <md-select multiple ng-model="bookStoreFilter.language" class="md-block">
+                <md-option ng-repeat="item in languages" value="{{item}}">{{item.f_name}}</md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Authors</label>
+            <md-select multiple ng-model="bookStoreFilter.author" class="md-block">
+                <md-option ng-repeat="item in languages" value="{{item}}">{{item.f_name}}</md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Categories</label>
+            <md-select multiple ng-model="bookStoreFilter.category" class="md-block">
+                <md-option ng-repeat="item in languages" value="{{item}}">{{item.f_name}}</md-option>
+            </md-select>
+        </md-input-container>
+        <br>
+        <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+            <md-button class="md-primary" ng-click="clearBookStoreFilter()">Clear</md-button>
+        </section>
+    </md-content>
+</md-content>
