@@ -108,6 +108,15 @@ searchBookInput{
 .searchBookInput md-input-container.md-dark-indigo-theme:not(.md-input-invalid).md-input-focused .md-input, md-input-container.md-dark-indigo-theme:not(.md-input-invalid).md-input-resized .md-input {
     border-color: white !important;
 }
+.searchBookInput md-input-container .md-input{
+    border-color:lightgrey;
+    color:white;
+}
+
+.searchBookInput md-input-container label {
+    color: lightgray;
+}
+
 .searchBookInput md-input-container .md-errors-spacer{
     min-height: 0px !important;
 }

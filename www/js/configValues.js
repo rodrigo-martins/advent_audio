@@ -24,10 +24,9 @@ myApp.config(function ($routeProvider) {
 })
 
 myApp.config(function ($mdThemingProvider, $mdColorPalette) {
-
-    var mdColorPalette = Object.keys($mdColorPalette)
+    /* var mdColorPalette = Object.keys($mdColorPalette)
     mdColorPalette.forEach(function (el) {
         $mdThemingProvider.theme(el, 'default').primaryPalette(el)
         $mdThemingProvider.theme('dark-' + el, 'default').primaryPalette(el).dark()
-    })
+    }) */
 });
