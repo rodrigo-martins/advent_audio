@@ -93,3 +93,8 @@
     margin-top: 3px !important;
 }
 
+md-toolbar{
+    position: fixed;
+    top: 0
+}
+

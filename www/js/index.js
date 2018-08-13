@@ -1,5 +1,17 @@
-var myApp = angular.module('myApp', ['ngMaterial'])
+var myApp = angular.module('myApp', ['ngRoute','ngMaterial'])
 
+myApp.config(function($routeProvider) {
+    $routeProvider
+    .when("/", {
+        templateUrl : "views/playList.htm"
+    })
+    .when("/london", {
+        templateUrl : "views/london.htm"
+    })
+    .when("/paris", {
+        templateUrl : "views/paris.htm"
+    })
+});
 myApp.filter('secondsToTime', function () {
 
     function padTime(t) {
@@ -42,14 +54,7 @@ myApp.controller('myCtrl', function ($scope, $mdBottomSheet) {
     } 
    
 
-    $scope.playList = [
-        {
-            "name": 'Guitar',
-            "url": "http://audio.ibeat.org/content/p1rj1s/p1rj1s_-_rockGuitar.mp3",
-        }, {
-            "name": 'Kate',
-            "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/dark-horse-320.mp3"
-        }, {
+    $scope.playList = [{
             "name": 'Easy',
             "url": "http://www.samisite.com/sound/cropShadesofGrayMonkees.mp3"
         }, {
@@ -161,7 +166,7 @@ myApp.controller('myCtrl', function ($scope, $mdBottomSheet) {
                     $scope.status = e
 
                     //Stop clock if not running
-                    if (e != 2) clearTimeout(clock)
+                    if (e != 2) clearInterval(clock)
 
                     switch (e) {
                         case 0:
@@ -232,7 +237,8 @@ myApp.controller('myCtrl', function ($scope, $mdBottomSheet) {
     $scope.pauseAudio = function () {
         if (media) {
             media.pause()
-            clearTimeout(clock)
+            clearInterval(clock)
+            clearInterval(timerDur)
         }
     }
 
@@ -240,7 +246,8 @@ myApp.controller('myCtrl', function ($scope, $mdBottomSheet) {
         if (media) {
             media.stop()
             media.release()
-            clearTimeout(clock)
+            clearInterval(clock)
+            clearInterval(timerDur)
         }
     }
 
@@ -267,9 +274,8 @@ myApp.controller('myCtrl', function ($scope, $mdBottomSheet) {
     }
 
     $scope.showGridBottomSheet = function () {
-        $scope.alert = ''
         $mdBottomSheet.show({
-            templateUrl: 'player.html',
+            templateUrl: 'templates/player.html',
             clickOutsideToClose: true,
             scope: $scope,
             preserveScope: true,
@@ -280,3 +286,39 @@ myApp.controller('myCtrl', function ($scope, $mdBottomSheet) {
         })
     }
 })
+
+
+function downloadFile(){
+    window.requestFileSystem(
+                 LocalFileSystem.PERSISTENT, 0, 
+                 function onFileSystemSuccess(fileSystem) {
+                 fileSystem.root.getFile(
+                             "dummy.html", {create: true, exclusive: false}, 
+                             function gotFileEntry(fileEntry){
+                             var sPath = fileEntry.fullPath.replace("dummy.html","");
+                             var fileTransfer = new FileTransfer();
+                             fileEntry.remove();
+
+                             fileTransfer.download(
+                                       "http://www.samisite.com/sound/cropShadesofGrayMonkees.mp3",
+                                       sPath + "theFile.pdf",
+                                       function(theFile) {
+                                       console.log("download complete: " + theFile.toURI());
+                                       showLink(theFile.toURI());
+                                       },
+                                       function(error) {
+                                       console.log("download error source " + error.source);
+                                       console.log("download error target " + error.target);
+                                       console.log("upload error code: " + error.code);
+                                       }
+                                       );
+                             }, 
+                             fail);
+                 }, 
+                 fail);
+
+}
+
+function fail(evt) {
+    console.log(evt.target.error.code);
+}

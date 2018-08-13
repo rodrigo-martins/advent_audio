@@ -14,12 +14,12 @@
                   <md-icon class="material-icon">skip_previous</md-icon>
                 </md-button>
               </div>
-              <div ng-show='status == 0 || status == 3 || status == 4'>
+              <div ng-show='status == 0 || status == 3'>
                 <md-button class="md-icon-button" ng-click="playAudio()">
                   <md-icon ng-show="status != 1 " class="material-icon">play_arrow</md-icon>
                 </md-button>
               </div>
-              <div ng-show='status == 1'>
+              <div ng-show='status == 1 || status == 4'>
                 <md-button class="md-icon-button" ng-click="stopAudio()">
                   <md-icon class="material-icon spin" ng-show="status == 1">sync</md-icon>
                 </md-button>
