@@ -15,9 +15,6 @@ myApp.config(function ($routeProvider) {
         .when("/config", {
             templateUrl: "views/config.html"
         })
-        .when("/search", {
-            templateUrl: "views/search.html"
-        })
         .when("/bookStoreFilter", {
             templateUrl: "views/bookStoreFilter.html"
         })

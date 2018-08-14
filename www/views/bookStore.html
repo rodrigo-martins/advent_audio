@@ -4,25 +4,28 @@
             <md-button class="md-icon-button" aria-label="Search">
                 <md-icon class="material-icon">search</md-icon>
             </md-button>
-            <md-input-container class="md-block" md-theme = 'dark-indigo'>
+            <md-input-container class="md-block">
                 <input ng-model="searchBook" name="searchBook" placeholder="Search">
             </md-input-container>
-            <md-button class="md-icon-button" aria-label="Search" href="#!bookStoreFilter">
+            <md-button class="md-icon-button" aria-label="Order By Alpha" ng-click="orderByBookName = !orderByBookName">
+                <md-icon class="material-icon">sort_by_alpha</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" aria-label="Sort" href="#!bookStoreFilter">
                 <md-icon class="material-icon">sort</md-icon>
             </md-button>
         </div>
     </md-toolbar>
     <br><br><br>
     <md-list>
-        <md-list-item class="md-2-line" ng-repeat="item in bookStore | filter: searchBook" ng-click="null">
+        <md-list-item class="md-3-line md-offset" ng-repeat="item in bookStore | filter: searchBook | limitTo: bookLimit | orderBy:'f_name':orderByBookName as results track by item.id" ng-click="null">
             <img ng-src="{{(item.f_capa) ? config.apiUrl+'/bookreader/default/download/'+item.f_capa : 'img/book_cover.png' }}" class="md-avatar"
-                alt="{{ item.f_name }}" />
+                alt="{{ item.f_name }}"/>
             <div class="md-list-item-text">
                 <h3>{{ item.f_name }}</h3>
                 <h4>Nome do Autor</h4>
-                <p>{{ item.f_livro_size }}B</p>
-                <md-icon ng-click="showGridBottomSheet()" aria-label="download {{item.name}}" class="md-secondary md-hue-3 material-icon">get_app</md-icon>
+                <p padding-right>{{ item.f_livro_size }}B</p>
             </div>
+            <md-icon ng-click="showGridBottomSheet()" aria-label="download {{item.name}}" class="md-icon-button md-secondary md-hue-3 material-icon">get_app</md-icon>
         </md-list-item>
     </md-list>
 </md-content>

@@ -19,7 +19,8 @@
     <script src="node_modules/angular-route/angular-route.min.js"></script>
 
     <!-- Angular Material Library -->
-    <script src="node_modules/angular-material/angular-material.js"></script>
+    <script src="node_modules/angular-material/angular-material.js"></script>   
+    
 
     <title>Advent Audio</title>
 </head>
@@ -31,31 +32,26 @@
                 <md-button href="#/!" class="md-icon-button" aria-label="Store">
                     <md-icon class="material-icon">home</md-icon>
                 </md-button>
-                <md-button href="#!search" class="md-icon-button" aria-label="Search">
-                    <md-icon class="material-icon">search</md-icon>
-                </md-button>
                 <md-button href="#!playList" class="md-icon-button" aria-label="Library">
                     <md-icon class="material-icon">local_library</md-icon>
                 </md-button>
                 <md-button class="md-icon-button" ng-click="showGridBottomSheet()" aria-label="Menu">
-                    <md-icon class="material-icon">menu</md-icon>
+                    <md-icon class="material-icon">settings</md-icon>
                 </md-button>
             </div>
         </md-toolbar>
         <div ng-view></div>
     </md-content>
-    <md-content>
-        <div>
-            <md-button ng-show='status == 0 || status == 3' ng-click="playAudio()" class="md-button md-fab md-fab-bottom-right" aria-label="Player">
-                <md-icon class="material-icon">play_arrow</md-icon>
-            </md-button>
-            <md-button ng-show='status == 1 || status == 4' ng-click="stopAudio()" class="md-button md-fab md-fab-bottom-right" aria-label="Player">
-                <md-icon class="material-icon spin" ng-show="status == 1">sync</md-icon>
-            </md-button>
-            <md-button ng-show="status == 2" ng-click="pauseAudio()" class="md-button md-fab md-fab-bottom-right" aria-label="Player">
-                <md-icon class="material-icon">pause</md-icon>
-            </md-button>
-        </div>
+    <md-content ng-show="audio">
+        <md-button ng-show='status == 0 || status == 3  || status == 4' ng-click="playAudio()" class="md-button md-fab md-fab-bottom-right" aria-label="Player">
+            <md-icon class="material-icon">play_arrow</md-icon>
+        </md-button>
+        <md-button ng-show='status == 1' ng-click="stopAudio()" class="md-button md-fab md-fab-bottom-right" aria-label="Player">
+            <md-icon class="material-icon spin" ng-show="status == 1">sync</md-icon>
+        </md-button>
+        <md-button ng-show="status == 2" ng-click="pauseAudio()" class="md-button md-fab md-fab-bottom-right" aria-label="Player">
+            <md-icon class="material-icon">pause</md-icon>
+        </md-button>
     </md-content>
 
     <script type="text/javascript" src="cordova.js"></script>

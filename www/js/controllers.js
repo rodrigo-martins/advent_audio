@@ -18,6 +18,11 @@ myApp.controller('myCtrl', function ($scope, $http, $mdBottomSheet, $mdColorPale
 
 
     $scope.searchBook = ''
+    $scope.orderByBookName = false
+    $scope.bookLimit = 15
+    $scope.increaseLimit = function () {
+        $scope.bookLimit += 15;
+    };
 
     $scope.book = {
         name: "History of Sabbath",
@@ -112,10 +117,10 @@ myApp.controller('myCtrl', function ($scope, $http, $mdBottomSheet, $mdColorPale
     ]
 
 
-    if (!$scope.audio && $scope.status == 0) {
+    /* if (!$scope.audio && $scope.status == 0) {
         if (!$scope.playList.length) return
         $scope.audio = $scope.playList[0]
-    }
+    } */
 
     $scope.playAudio = function () {
 
@@ -274,9 +279,7 @@ myApp.controller('myCtrl', function ($scope, $http, $mdBottomSheet, $mdColorPale
             scope: $scope,
             preserveScope: true,
         }).then(function (e) {
-
         }).catch(function (e) {
-            // User clicked outside or hit escape
         })
     }
 })
