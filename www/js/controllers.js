@@ -1,4 +1,4 @@
-myApp.controller('myCtrl', function ($scope, $http, $mdBottomSheet, $mdColorPalette, config) {
+myApp.controller('myCtrl', function ($scope, $http, $location, $mdBottomSheet, config) {
 
     $scope.config = config
 
@@ -11,11 +11,8 @@ myApp.controller('myCtrl', function ($scope, $http, $mdBottomSheet, $mdColorPale
     $scope.duration = 0
     $scope.position = 0
 
-    $scope.audio = null;
-
-
-    $scope.colors = Object.keys($mdColorPalette);
-
+    $scope.audio = null
+    $scope.book = null
 
     $scope.searchBook = ''
     $scope.orderByBookName = false
@@ -41,10 +38,10 @@ myApp.controller('myCtrl', function ($scope, $http, $mdBottomSheet, $mdColorPale
 
     $scope.bookStore = {
         items: [],
-        getItemAtIndex: function(index){
+        getItemAtIndex: function (index) {
             return this.items[index];
         },
-        getLength: function(){
+        getLength: function () {
             return this.items.length;
         }
     }
@@ -272,6 +269,7 @@ myApp.controller('myCtrl', function ($scope, $http, $mdBottomSheet, $mdColorPale
         }
     }
 
+
     $scope.showGridBottomSheet = function () {
         $mdBottomSheet.show({
             templateUrl: 'templates/player.html',
@@ -281,5 +279,17 @@ myApp.controller('myCtrl', function ($scope, $http, $mdBottomSheet, $mdColorPale
         }).then(function (e) {
         }).catch(function (e) {
         })
+    }
+
+    $scope.setBook = function (book) {
+        console.log(book)
+        $scope.book = book
+        $location.path('/playList')
+        if (book) {
+            $http.get(book.f_livro_uri)
+                .then(function (response) {
+                    $scope.book.f_content = response.data
+                })
+        }
     }
 })

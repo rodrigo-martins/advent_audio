@@ -3,14 +3,16 @@ myApp.constant('config', {
     baseUrl: '/',
     enableDebug: true
 });
-
-myApp.config(function ($routeProvider) {
+myApp.config(function ($routeProvider, $locationProvider) {
     $routeProvider
         .when("/", {
             templateUrl: "views/bookStore.html"
         })
         .when("/playList", {
             templateUrl: "views/playList.html"
+        })
+        .when("/bookContent", {
+            templateUrl: "views/bookContent.html"
         })
         .when("/config", {
             templateUrl: "views/config.html"

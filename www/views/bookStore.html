@@ -17,10 +17,11 @@
     </md-toolbar>
     <br>
     <br>
+    <!-- | filter: searchBook | orderBy:'f_name':orderByBookName -->
     <md-list>
         <md-virtual-repeat-container  class="bookStoreVirtualContainer">
             <md-list-item class="md-3-line" md-on-demand md-virtual-repeat="item in bookStore"
-                ng-click="null">
+                ng-click="setBook(item)">
                 <img ng-src="{{(item.f_capa) ? config.apiUrl+'/bookreader/default/download/'+item.f_capa : 'img/book_cover.png' }}" class="md-avatar"
                     alt="{{ item.f_name }}" />
                 <div class="md-list-item-text">

@@ -1,1 +1,1 @@
-var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial'])
+var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial','ngSanitize'])
