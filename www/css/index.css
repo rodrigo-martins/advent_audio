@@ -121,3 +121,6 @@ searchBookInput{
     min-height: 0px !important;
 }
 
+.bookStoreVirtualContainer {
+    height: 140vw;
+}

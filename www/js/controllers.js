@@ -19,10 +19,6 @@ myApp.controller('myCtrl', function ($scope, $http, $mdBottomSheet, $mdColorPale
 
     $scope.searchBook = ''
     $scope.orderByBookName = false
-    $scope.bookLimit = 15
-    $scope.increaseLimit = function () {
-        $scope.bookLimit += 15;
-    };
 
     $scope.book = {
         name: "History of Sabbath",
@@ -43,10 +39,20 @@ myApp.controller('myCtrl', function ($scope, $http, $mdBottomSheet, $mdColorPale
         }
     }
 
+    $scope.bookStore = {
+        items: [],
+        getItemAtIndex: function(index){
+            return this.items[index];
+        },
+        getLength: function(){
+            return this.items.length;
+        }
+    }
+
     $http.get(config.apiUrl + "bookreader/api/service/books")
         .then(function (response) {
             console.log(response.data)
-            $scope.bookStore = response.data.items;
+            $scope.bookStore.items = response.data.items;
         })
 
     $http.get(config.apiUrl + "bookreader/api/languages/all")
@@ -115,12 +121,6 @@ myApp.controller('myCtrl', function ($scope, $http, $mdBottomSheet, $mdColorPale
         "url": "https://ondemand.npr.org/anon.npr-mp3/npr/quiz/2015/06/mozart-17-128.mp3"
     },
     ]
-
-
-    /* if (!$scope.audio && $scope.status == 0) {
-        if (!$scope.playList.length) return
-        $scope.audio = $scope.playList[0]
-    } */
 
     $scope.playAudio = function () {
 
